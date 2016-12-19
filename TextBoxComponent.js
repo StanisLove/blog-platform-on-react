@@ -1,10 +1,10 @@
 const DOM = React.DOM;
 
-const TextBox = ({ string }) => (
-  DOM.span(null, `${string}`)
+const TextBox = ({ text }) => (
+  DOM.span(null, `${text}`)
 );
 
 ReactDOM.render(
-  React.createElement(TextBox, { string: 'Sample string' }),
-  document.getElementById('str')
+  React.createElement(TextBox, { text: 'Sample string' }),
+  document.getElementById('text')
 );

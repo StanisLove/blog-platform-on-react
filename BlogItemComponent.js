@@ -1,56 +1,64 @@
 class Picture extends React.Component {
   render() {
-    const { src, alt } = this.props;
+    const { src, alt, width, height } = this.props;
 
     return React.createElement(
       'img',
-      {
-        src: src,
-        alt: alt,
-        style: { width: '100px', height: 'auto' }
-      }
+      { src, alt, style: { width, height  } }
     );
   }
 }
 
-const TextBox = ({ string }) => (
-  React.DOM.span(null, `${ string }`)
+const TextBox = ({ text }) => (
+  React.DOM.span(null, `${ text }`)
 );
 
 class BlogItem extends React.Component {
   render() {
-    const { src, alt, string } = this.props;
+    const { image, text } = this.props;
 
     return React.createElement(
       'div',
       null,
-      React.createElement(Picture, { src, alt }),
-      React.createElement(TextBox, { string })
+      React.createElement(Picture, image)
+      React.createElement(TextBox, { text })
     )
   }
 }
 
 ReactDOM.render(
   React.createElement(BlogItem, {
-    src: 'https://facebook.github.io/react/img/logo_og.png',
-    alt: 'React picture',
-    string: 'Some text about React'
+    text: 'Some text about React',
+    image: {
+      src: 'https://facebook.github.io/react/img/logo_og.png',
+      alt: 'React picture',
+      width: '100px',
+      height: 'auto'
+    }
   }),
   document.getElementById('app_1')
 );
 ReactDOM.render(
   React.createElement(BlogItem, {
-    src: 'https://raw.githubusercontent.com/babel/logo/master/babel.png',
-    alt: 'Babel picture',
-    string: 'Some text about Babel'
+    text: 'Some text about Babel',
+    image: {
+      src: 'https://raw.githubusercontent.com/babel/logo/master/babel.png',
+      alt: 'Babel picture',
+      width: '100px',
+      height: 'auto'
+    }
   }),
   document.getElementById('app_2')
 );
 ReactDOM.render(
   React.createElement(BlogItem, {
-    src: 'https://babeljs.io/images/users/lodash.svg',
-    alt: 'Lodash picture',
-    string: 'Some text about Lodash'
+    text: 'Some text about Lodash',
+    image: {
+      src: 'https://babeljs.io/images/users/lodash.svg',
+      alt: 'Lodash picture',
+      width: '100px',
+      height: 'auto'
+    }
   }),
   document.getElementById('app_3')
 );

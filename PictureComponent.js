@@ -4,11 +4,7 @@ class Picture extends React.Component {
 
     return React.createElement(
       'img',
-      {
-        src: src,
-        alt: alt,
-        style: { width: width, height: height }
-      }
+      { src, alt, style: { width, height } }
     );
   }
 }
