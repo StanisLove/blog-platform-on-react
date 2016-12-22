@@ -9,11 +9,23 @@ class Picture extends React.Component {
   }
 }
 
+Picture.propTypes = {
+  src: React.PropTypes.string,
+  alt: React.PropTypes.string,
+  width: React.PropTypes.string,
+  height: React.PropTypes.string
+}
+
+Picture.defaultProps = {
+  src: 'http://proxyprivat.com/images/noimage.jpeg',
+  alt: 'No image',
+  width: '100px',
+  height: 'auto'
+}
+
 ReactDOM.render(
   React.createElement(Picture, {
     src: 'https://facebook.github.io/react/img/logo_og.png',
-    width: 'auto',
-    height: '100px',
     alt: 'React picture'
   }),
   document.getElementById('app')
