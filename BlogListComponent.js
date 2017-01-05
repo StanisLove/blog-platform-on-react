@@ -130,7 +130,7 @@ MetaInfo.defaultProps = {
 
 class BlogItem extends React.Component {
   render() {
-    const { image, text, meta } = this.props;
+    const { image, text, meta } = this.props.value;
 
     return React.createElement(
       'li',
@@ -176,9 +176,9 @@ class BlogList extends React.Component {
   render () {
     return React.createElement(
       'ul',
-      {style: {listStyleType: 'none'}},
+      { style: { listStyleType: 'none' } },
       this.props.list.map(function(value) {
-        return React.createElement(BlogItem, value)
+        return React.createElement(BlogItem, { key: value.id, value: value })
       })
     )
   }
@@ -190,6 +190,7 @@ BlogList.defaultProps = {
 
 const list = [
   {
+    id: 'post_1',
     text: 'Some text about React',
     image: {
       src: 'https://facebook.github.io/react/img/logo_og.png',
@@ -202,6 +203,7 @@ const list = [
     }
   },
   {
+    id: 'post_2',
     text: 'Some text about Babel',
     image: {
       src: 'https://raw.githubusercontent.com/babel/logo/master/babel.png',
@@ -213,6 +215,7 @@ const list = [
     }
   },
   {
+    id: 'post_3',
     text: 'Some text about Lodash',
     image: {
       src: 'https://babeljs.io/images/users/lodash.svg',
@@ -229,5 +232,6 @@ ReactDOM.render(
   React.createElement(BlogList, { list }),
   document.getElementById('app')
 );
+
 
 

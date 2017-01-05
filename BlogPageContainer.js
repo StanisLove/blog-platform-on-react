@@ -38,6 +38,18 @@ TextBox.defaultProps = {
   text: 'You can add some text'
 }
 
+const Title = ({ title }) => (
+  <h2>{ title }</h2>
+);
+
+Title.propTypes = {
+  title: React.PropTypes.string
+}
+
+Title.defaultProps = {
+  title: 'Post'
+}
+
 const Author = ({ firstName, lastName }) => (
   React.DOM.p(null, `${firstName} ${lastName}`)
 );
@@ -64,50 +76,35 @@ const PostDates = ({ createdAt, updatedAt }) => (
     )
 );
 
-class Like extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: props.count, hide: false }
-    this.handleClick = bind(this.handleClick, this);
-  }
-
-  handleClick(e) {
-    this.setState({ count: this.state.count + 1, hide: true });
-  }
-
-  render() {
-    const style = {};
-    if (this.state.hide) {
-      style.display = 'none'
-    };
-
-    return (
-      <div>
-        <p>{this.state.count} people likes this</p>
-        <button onClick={this.handleClick} style={style}>I like it</button>
-      </div>
-    )
-  }
-}
+const Like = props  => (
+  <div>
+    <p>{props.likeCount} people likes this</p>
+    <button onClick={props.postLiked}>I like it</button>
+  </div>
+)
 
 Like.propTypes = {
-  count: React.PropTypes.number
+  likeCount: React.PropTypes.number
 }
 
 Like.defaultProps = {
-  count: 0
+  likeCount: 0
 }
 
 class MetaInfo extends React.Component {
+  posted() {
+    console.log('text');
+  }
   render() {
-    const { author, postDates, likeCount } = this.props;
+    const { author, postDates, likeCount } = this.props.meta;
+    const { postLiked } = this.props;
 
     return React.createElement(
       'div',
       null
       , React.createElement(Author, author)
       , React.createElement(PostDates, postDates)
-      , React.createElement(Like, likeCount)
+      , React.createElement(Like, { likeCount, postLiked })
     )
   }
 }
@@ -121,27 +118,27 @@ MetaInfo.propTypes = {
     createdAt: React.PropTypes.string,
     updatedAt: React.PropTypes.string
   }),
-  likeCount: React.PropTypes.shape({
-    count: React.PropTypes.number
-  })
+  likeCount: React.PropTypes.number
 }
 
 MetaInfo.defaultProps = {
   author: { firstName: 'Anonymous', lastName: 'Anonymous' },
   postDates: { createdAt: 'undefined', updatedAt: 'undefined' },
-  likeCount: { count: 0 }
+  likeCount: 0
 }
 
 class BlogItem extends React.Component {
   render() {
-    const { image, text, meta } = this.props;
+    const { title, image, text, meta } = this.props.value;
+    const { postLiked } = this.props;
 
     return React.createElement(
       'li',
       null
+      , React.createElement(Title, { title })
       , React.createElement(Picture, image)
       , React.createElement(TextBox, { text })
-      , React.createElement(MetaInfo, meta)
+      , React.createElement(MetaInfo, { meta, postLiked })
     )
   }
 }
@@ -161,9 +158,7 @@ BlogItem.propTypes = {
       createdAt: React.PropTypes.string,
       updatedAt: React.PropTypes.string
     }),
-    likeCount: React.PropTypes.shape({
-      count: React.PropTypes.number
-    })
+    likeCount: React.PropTypes.number
 }
 
 BlogItem.defaultProps = {
@@ -178,11 +173,15 @@ BlogItem.defaultProps = {
 
 class BlogList extends React.Component {
   render () {
+    const { list, postLiked } = this.props;
+
     return React.createElement(
       'ul',
-      {style: {listStyleType: 'none'}},
-      this.props.list.map(function(value) {
-        return React.createElement(BlogItem, value)
+      { style: { listStyleType: 'none' } },
+      list.map(function(value) {
+        return React.createElement(
+          BlogItem, { key: value.id, value: value, postLiked: () => postLiked(value.id) }
+        )
       })
     )
   }
@@ -194,6 +193,8 @@ BlogList.defaultProps = {
 
 const list = [
   {
+    id: 'post_1',
+    title: 'React',
     text: 'Some text about React',
     image: {
       src: 'https://facebook.github.io/react/img/logo_og.png',
@@ -202,10 +203,12 @@ const list = [
     meta: {
       author: { firstName: 'Ivan', lastName: 'Ivanov' },
       postDates: { createdAt: '2011-01-01', updatedAt: '2011-02-01' },
-      likeCount: { count: 5 }
+      likeCount: 5
     }
   },
   {
+    id: 'post_2',
+    title: 'Babel',
     text: 'Some text about Babel',
     image: {
       src: 'https://raw.githubusercontent.com/babel/logo/master/babel.png',
@@ -213,10 +216,13 @@ const list = [
     },
     meta: {
       author: { firstName: 'Bread', lastName: 'Pitt' },
-      postDates: { createdAt: '2014-10-08', updatedAt: '2015-01-02' }
+      postDates: { createdAt: '2014-10-08', updatedAt: '2015-01-02' },
+      likeCount: 3
     }
   },
   {
+    id: 'post_3',
+    title: 'Lodash',
     text: 'Some text about Lodash',
     image: {
       src: 'https://babeljs.io/images/users/lodash.svg',
@@ -229,17 +235,72 @@ const list = [
   }
 ]
 
+class PieChart extends React.Component {
+  componentDidMount() {
+    this.chart = c3.generate({
+      bindto: ReactDOM.findDOMNode(this.refs.pieChart),
+      data: {
+        columns: this.props.columns,
+        type: 'pie',
+        onclick: function (d, i) { console.log("onclick", d, i); },
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.chart.destroy()
+  }
+
+  componentWillReceiveProps() {
+    this.chart.load({
+      columns: this.props.columns
+    })
+  }
+
+  render() {
+    return (
+      <div ref="pieChart" />
+    )
+  }
+}
 
 class BlogPage extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { list };
+    this.postLiked = bind(this.postLiked, this);
+  }
+
+  postLiked(id) {
+    list.map(obj => { if (obj.id == id) {
+      obj.meta.likeCount ? obj.meta.likeCount += 1 : obj.meta.likeCount = 1
+    } });
+    this.setState({ list });
+  }
+
+  chartColumns() {
+    const data = [];
+
+    list.map(obj => {
+      data.push([
+        obj.title ? obj.title : 'Title',
+        obj.meta.likeCount ? obj.meta.likeCount : 0
+      ])
+    });
+    return { columns: data }
   }
 
   render() {
     const { list } = this.state;
-    return React.createElement(BlogList, { list });
+
+    return React.createElement(
+      'div',
+      null
+      , React.createElement(BlogList, { list: list, postLiked: this.postLiked })
+      , React.createElement(PieChart, this.chartColumns())
+    );
   }
 }
 
@@ -247,3 +308,4 @@ ReactDOM.render(
   React.createElement(BlogPage),
   document.getElementById('app')
 )
+
