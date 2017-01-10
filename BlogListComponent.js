@@ -109,9 +109,17 @@ class MetaInfo extends React.Component {
 }
 
 MetaInfo.propTypes = {
-  author: React.PropTypes.object,
-  postDates: React.PropTypes.object,
-  likeCount: React.PropTypes.object
+  author: React.PropTypes.shape({
+    firstName: React.PropTypes.string,
+    lastName: React.PropTypes.string
+  }),
+  postDates: React.PropTypes.shape({
+    createdAt: React.PropTypes.string,
+    updatedAt: React.PropTypes.string
+  }),
+  likeCount: React.PropTypes.shape({
+    count: React.PropTypes.number
+  })
 }
 
 MetaInfo.defaultProps = {
@@ -135,9 +143,23 @@ class BlogItem extends React.Component {
 }
 
 BlogItem.propTypes = {
-  image: React.PropTypes.object,
+  image: React.PropTypes.shape({
+    src: React.PropTypes.string
+    alt: React.PropTypes.string
+  }),
   text: React.PropTypes.string,
-  meta: React.PropTypes.object
+  meta: React.PropTypes.shape({
+    author: React.PropTypes.shape({
+      firstName: React.PropTypes.string,
+      lastName: React.PropTypes.string
+    }),
+    postDates: React.PropTypes.shape({
+      createdAt: React.PropTypes.string,
+      updatedAt: React.PropTypes.string
+    }),
+    likeCount: React.PropTypes.shape({
+      count: React.PropTypes.number
+    })
 }
 
 BlogItem.defaultProps = {
