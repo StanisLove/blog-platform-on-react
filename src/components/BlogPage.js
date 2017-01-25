@@ -6,9 +6,9 @@ import BlogList from 'components/widgets/blog/List';
 
 import PieChart from 'components/widgets/blog/PieChart';
 
-import _ from 'lodash';
+import { get } from 'lodash/object';
 
-const { bind } = _;
+import { bind } from 'lodash/function';
 
 class BlogPage extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class BlogPage extends React.Component {
 
   postLiked(id) {
     items.map(obj => { if (obj.id == id) {
-      (obj.meta.likeCount += 1) || (obj.meta.likeCount = 1)
+      obj.meta.likeCount = get(obj, 'meta.likeCount', 0) + 1;
     } });
     this.setState({ items });
   }
@@ -31,9 +31,9 @@ class BlogPage extends React.Component {
       data.push([
         obj.title || 'Title',
         obj.meta.likeCount || 0
-      ])
+      ]);
     });
-    return { columns: data }
+    return { columns: data };
   }
 
   render() {

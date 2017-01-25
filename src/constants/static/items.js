@@ -40,4 +40,4 @@ export const items = [
       postDates: { createdAt: '1995-08-10', updatedAt: '1996-12-24' }
     }
   }
-]
+];

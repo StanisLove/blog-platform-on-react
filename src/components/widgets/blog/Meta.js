@@ -1,44 +1,38 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Author from './elements/Author';
 import PostDates from './elements/PostDates';
 import Like from './elements/Like';
 
-class Meta extends React.Component {
-  posted() {
-    console.log('text');
-  }
-  render() {
-    const { author, postDates, likeCount } = this.props.meta;
-    const { postLiked } = this.props;
-
-    return (
-      <div>
-        <Author {...author} />
-        <PostDates {...postDates} />
-        <Like likeCount={likeCount} postLiked={postLiked} />
-      </div>
-    );
-
-  }
-}
+const Meta = ({meta, postLiked}) => (
+  <div>
+    <Author {...meta.author} />
+    <PostDates {...meta.postDates} />
+    <Like likeCount={meta.likeCount} postLiked={postLiked} />
+  </div>
+);
 
 Meta.propTypes = {
-  author: React.PropTypes.shape({
-    firstName: React.PropTypes.string,
-    lastName: React.PropTypes.string
+  meta: PropTypes.shape({
+    author: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string
+    }),
+    postDates: PropTypes.shape({
+      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string
+    }),
+    likeCount: PropTypes.number
   }),
-  postDates: React.PropTypes.shape({
-    createdAt: React.PropTypes.string,
-    updatedAt: React.PropTypes.string
-  }),
-  likeCount: React.PropTypes.number
-}
+  postLiked: PropTypes.func
+};
 
 Meta.defaultProps = {
-  author: { firstName: 'Anonymous', lastName: 'Anonymous' },
-  postDates: { createdAt: 'undefined', updatedAt: 'undefined' },
-  likeCount: 0
-}
+  meta: {
+    author: { firstName: 'Anonymous', lastName: 'Anonymous' },
+    postDates: { createdAt: 'undefined', updatedAt: 'undefined' },
+    likeCount: 0
+  }
+};
 
 export default Meta;

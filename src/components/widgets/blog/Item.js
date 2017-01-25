@@ -1,53 +1,55 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Title from './elements/Title';
 import Image from './elements/Image';
 import TextBox from './elements/TextBox';
 import Meta from './Meta';
 
-class BlogItem extends React.Component {
-  render() {
-    const { title, image, text, meta } = this.props.item;
-    const { postLiked } = this.props;
-
-    return (
-      <li>
-        <Title title={title} />
-        <Image {...image} />
-        <TextBox text={text} />
-        <Meta meta={meta} postLiked={postLiked} />
-      </li>
-    );
-  }
-}
+const BlogItem = ({item, postLiked}) => (
+  <li>
+    <Title title={item.title} />
+    <Image {...item.image} />
+    <TextBox text={item.text} />
+    <Meta meta={item.meta} postLiked={postLiked} />
+  </li>
+);
 
 BlogItem.propTypes = {
-  image: React.PropTypes.shape({
-    src: React.PropTypes.string,
-    alt: React.PropTypes.string
+  item: PropTypes.shape({
+    title: PropTypes.string,
+    image: PropTypes.shape({
+      src: PropTypes.string,
+      alt: PropTypes.string
+    }),
+    text: PropTypes.string,
+    meta: PropTypes.shape({
+      author: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string
+      }),
+      postDates: PropTypes.shape({
+        createdAt: PropTypes.string,
+        updatedAt: PropTypes.string
+      }),
+      likeCont: PropTypes.number
+    })
   }),
-  text: React.PropTypes.string,
-  meta: React.PropTypes.shape({
-    author: React.PropTypes.shape({
-      firstName: React.PropTypes.string,
-      lastName: React.PropTypes.string
-    }),
-    postDates: React.PropTypes.shape({
-      createdAt: React.PropTypes.string,
-      updatedAt: React.PropTypes.string
-    }),
-    likeCont: React.PropTypes.number
-  })
-}
+  postLiked: PropTypes.func
+};
 
 BlogItem.defaultProps = {
-  image: { src: 'http://proxyprivat.com/images/noimage.jpeg', alt: 'No image'},
-  text: 'You can add some text',
-  meta: {
-    author: { firstName: 'Anonymous', lastName: 'Anonymous' },
-    postDates: { createdAt: 'undefined', updatedAt: 'undefined' },
-    likeCount: 0
+  item: {
+    image: {
+      src: 'http://proxyprivat.com/images/noimage.jpeg',
+      alt: 'No image'
+    },
+    text: 'You can add some text',
+    meta: {
+      author: { firstName: 'Anonymous', lastName: 'Anonymous' },
+      postDates: { createdAt: 'undefined', updatedAt: 'undefined' },
+      likeCount: 0
+    }
   }
-}
+};
 
 export default BlogItem;
