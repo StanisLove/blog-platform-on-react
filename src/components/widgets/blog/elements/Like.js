@@ -4,8 +4,18 @@ import { Button } from 'semantic-ui-react';
 
 const Like = ({likeCount, postLiked})  => (
   <div>
-    <p>{likeCount} people likes this</p>
-    <Button onClick={postLiked}>I like it</Button>
+    <Button
+      onClick={postLiked}
+      color='grey'
+      content='Like'
+      icon='like outline'
+      label={{
+        basic: true,
+        color: 'grey',
+        pointing: 'left',
+        content: likeCount
+      }}
+    />
   </div>
 );
 

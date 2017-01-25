@@ -1,12 +1,13 @@
 import React from 'react';
+import { Icon } from 'semantic-ui-react';
 
 import { formatDate } from 'helpers/date';
 
 const PostDates = ({createdAt, updatedAt}) => (
-  <div>
-    <p>Created: {formatDate(createdAt)}</p>
-    <p>Updated: {formatDate(updatedAt)}</p>
-  </div>
+  <span>
+    <Icon name='calendar outline' />Created: {formatDate(createdAt)}
+    <Icon name='history' />Updated: {formatDate(updatedAt)}
+  </span>
 );
 
 PostDates.propTypes = {

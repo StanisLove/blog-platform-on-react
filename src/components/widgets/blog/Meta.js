@@ -1,15 +1,16 @@
 import React, { PropTypes } from 'react';
+import { Item } from 'semantic-ui-react';
 
 import Author from './elements/Author';
 import PostDates from './elements/PostDates';
 import Like from './elements/Like';
 
 const Meta = ({meta, postLiked}) => (
-  <div>
+  <Item>
     <Author {...meta.author} />
     <PostDates {...meta.postDates} />
     <Like likeCount={meta.likeCount} postLiked={postLiked} />
-  </div>
+  </Item>
 );
 
 Meta.propTypes = {

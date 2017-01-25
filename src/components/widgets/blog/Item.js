@@ -1,17 +1,23 @@
 import React, { PropTypes } from 'react';
+import { Item, Image } from 'semantic-ui-react';
+import { Link } from 'react-router';
 
 import Title from './elements/Title';
-import Image from './elements/Image';
 import TextBox from './elements/TextBox';
 import Meta from './Meta';
+import { postsPath } from 'helpers/routes';
 
 const BlogItem = ({item, postLiked}) => (
-  <li>
-    <Title title={item.title} />
-    <Image {...item.image} />
+  <Item>
+    <Link to={postsPath(item.id)}>
+      <Image {...item.image} floated='left' />
+      <Item.Header>
+        <Title title={item.title} />
+      </Item.Header>
+    </Link>
     <TextBox text={item.text} />
     <Meta meta={item.meta} postLiked={postLiked} />
-  </li>
+  </Item>
 );
 
 BlogItem.propTypes = {

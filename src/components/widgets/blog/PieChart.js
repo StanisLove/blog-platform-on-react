@@ -20,7 +20,7 @@ class PieChart extends React.Component {
     this.chart.destroy();
   }
 
-  componentWillReceiveProps() {
+  componentDidUpdate() {
     this.chart.load({
       columns: this.props.columns
     });

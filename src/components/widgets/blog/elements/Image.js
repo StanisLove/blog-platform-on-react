@@ -14,8 +14,8 @@ Image.propTypes = {
 Image.defaultProps = {
   src: 'http://proxyprivat.com/images/noimage.jpeg',
   alt: 'No image',
-  width: '100px',
-  height: 'auto'
+  width: 'auto',
+  height: '100px'
 };
 
 export default Image;
