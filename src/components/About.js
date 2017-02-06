@@ -3,6 +3,7 @@ import request from 'superagent';
 import Title from 'components/widgets/blog/elements/Title';
 import TextBox from 'components/widgets/blog/elements/TextBox';
 import { Container } from 'semantic-ui-react';
+import { ENDPOINT as url } from 'constants/ApiUrl';
 
 class About extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class About extends React.Component {
 
   fetchAbout() {
     request.get(
-      'http://localhost:3011/about',
+      `${url}/about`,
       {},
       (err, res) => {
         if (!err) {

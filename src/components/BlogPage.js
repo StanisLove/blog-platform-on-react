@@ -6,12 +6,14 @@ import SearchForm from 'components/widgets/blog/SearchForm';
 import { get } from 'lodash/object';
 import { bind } from 'lodash/function';
 import { Grid } from 'semantic-ui-react';
+import { ENDPOINT as url } from 'constants/ApiUrl';
 
 class BlogPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] };
+    this.state = { items: [], itemsOnPage: [], blogsPerPage: 2 };
     this.postLiked = bind(this.postLiked, this);
+    this.changePage = bind(this.changePage, this);
   }
 
   componentWillMount() {
@@ -20,10 +22,19 @@ class BlogPage extends React.Component {
 
   fetchPosts() {
     request.get(
-      'http://localhost:3011/',
+      `${url}/`,
       {},
-      (err, res) => this.setState({ items: res.body })
+      (err, res) => this.setState({
+        items: res.body, itemsOnPage: res.body.slice(0, 2)
+      })
     );
+  }
+
+  changePage(num) {
+    const { items, blogsPerPage } = this.state;
+    this.setState({
+      itemsOnPage: items.slice((num - 1) * blogsPerPage, num * blogsPerPage)
+    });
   }
 
   postLiked(id) {
@@ -47,7 +58,8 @@ class BlogPage extends React.Component {
   }
 
   render() {
-    const { items } = this.state;
+    const { items, itemsOnPage, blogsPerPage } = this.state;
+    const pagesCount = Math.ceil(items.length / blogsPerPage);
     const chartProps = this.chartColumns(items);
 
     return (
@@ -57,9 +69,10 @@ class BlogPage extends React.Component {
         </Grid.Row>
         <Grid.Column>
           <BlogList
-            items={items}
+            itemsOnPage={itemsOnPage}
+            pagesCount={pagesCount}
+            changePage={this.changePage}
             postLiked={this.postLiked}
-            blogsPerPage={2}
           />
         </Grid.Column>
 

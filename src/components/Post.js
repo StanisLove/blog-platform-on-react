@@ -4,6 +4,7 @@ import BlogItem from 'components/widgets/blog/Item';
 import request from 'superagent';
 import { get } from 'lodash/object';
 import { bind } from 'lodash/function';
+import { ENDPOINT as url } from 'constants/ApiUrl';
 
 class Post extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Post extends React.Component {
 
   fetchPost() {
     request.get(
-      'http://localhost:3011/',
+      `${url}/`,
       {},
       (err, res) => {
         if (!err) {

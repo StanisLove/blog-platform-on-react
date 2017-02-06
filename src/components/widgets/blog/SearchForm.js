@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { Form, Button, Icon } from 'semantic-ui-react';
+import 'styles/search_form.css';
 
 class SearchForm extends React.Component {
   handleSubmit(e, { formData }) {
@@ -20,15 +21,14 @@ class SearchForm extends React.Component {
     return (
       <Form
         onSubmit={this.handleSubmit}
-        style={{ display: 'flex', paddingTop: '30px', marginLeft: '20px' }}
+        className='search-form'
       >
         <Form.Select
           name='blog'
           options={blogNames}
           search
         />
-        <Button
-          type='submit' icon style={{ marginLeft: '20px', height: '40px'}} >
+        <Button type='submit' icon className='search-button' >
           <Icon name='search' />
         </Button>
       </Form>

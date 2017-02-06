@@ -1,0 +1,9 @@
+.search-form {
+  display: flex;
+  padding-top: 30px;
+  margin-left: 20px;
+}
+.search-button {
+  height: 37px !important;
+  margin-left: 20px !important;
+}

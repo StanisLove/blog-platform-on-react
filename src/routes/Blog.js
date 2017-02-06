@@ -4,6 +4,7 @@ import Post from 'components/Post';
 import About from 'components/About';
 
 import { postsPath } from 'helpers/routes';
+import { aboutPath } from 'helpers/routes/About';
 
 const Index = {
   path: '/',
@@ -16,7 +17,7 @@ const PostRoute = {
 };
 
 const AboutRoute = {
-  path: '/about',
+  path: aboutPath,
   component: About
 };
 
