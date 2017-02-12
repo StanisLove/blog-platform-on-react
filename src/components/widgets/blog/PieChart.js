@@ -11,29 +11,30 @@ class PieChart extends React.Component {
       bindto: ReactDOM.findDOMNode(this.refs.pieChart),
       data: {
         columns: this.props.columns,
-        type: 'pie',
-        onclick: function (d, i) { console.log("onclick", d, i); },
-        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        type: 'pie'
       }
-    })
+    });
   }
 
   componentWillUnmount() {
-    this.chart.destroy()
+    this.chart.destroy();
   }
 
-  componentWillReceiveProps() {
+  componentDidUpdate() {
     this.chart.load({
       columns: this.props.columns
-    })
+    });
   }
 
   render() {
     return (
       <div ref="pieChart" />
-    )
+    );
   }
 }
+
+PieChart.propTypes = {
+  columns: React.PropTypes.array
+};
 
 export default PieChart;

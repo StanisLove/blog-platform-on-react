@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import BlogItem from './Item';
 
-class BlogList extends React.Component {
-  render () {
-    const { items, postLiked } = this.props;
-    const style = {
-      listStyleType: 'none'
+import Pagination from './Pagination';
+
+const BlogList = ({itemsOnPage, pagesCount, postLiked, changePage}) => (
+  <div>
+    {
+      itemsOnPage.map(item =>
+        <BlogItem
+          key={item.id}
+          item={item}
+          postLiked={() => postLiked(item.id)}
+        />
+      )
     }
+    <Pagination
+      pagesCount={pagesCount}
+      changePage={changePage}
+    />
+  </div>
+);
 
-    return (
-      <ul style={style}>
-        {items.map(function(item) {
-          return <BlogItem key={item.id} item={item} postLiked={() => postLiked(item.id)} />
-        })}
-      </ul>
-    )
-  }
-}
-
-BlogList.defaultProps = {
-  items: React.PropTypes.array
-}
+BlogList.propTypes = {
+  itemsOnPage: PropTypes.array,
+  pagesCount: PropTypes.number,
+  changePage: PropTypes.func,
+  postLiked: PropTypes.func
+};
 
 export default BlogList;

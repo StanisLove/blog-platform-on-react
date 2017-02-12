@@ -6,10 +6,10 @@ const Title = ({title}) => (
 
 Title.propTypes = {
   title: React.PropTypes.string
-}
+};
 
 Title.defaultProps = {
   title: 'Post'
-}
+};
 
 export default Title;
