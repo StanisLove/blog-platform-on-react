@@ -3,8 +3,7 @@ import BlogPage from 'components/BlogPage';
 import Post from 'components/Post';
 import About from 'components/About';
 
-import { postsPath } from 'helpers/routes';
-import { aboutPath } from 'helpers/routes/About';
+import { postsPath, aboutPath } from 'helpers/routes';
 
 const Index = {
   path: '/',
@@ -17,7 +16,7 @@ const PostRoute = {
 };
 
 const AboutRoute = {
-  path: aboutPath,
+  path: aboutPath(),
   component: About
 };
 

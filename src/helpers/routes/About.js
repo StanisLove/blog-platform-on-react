@@ -1,1 +1,1 @@
-export const aboutPath = '/about';
+export const aboutPath = () => '/about';
