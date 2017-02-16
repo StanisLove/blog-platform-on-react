@@ -1,42 +1,18 @@
-import React from 'react';
-import request from 'superagent';
+import React, { PropTypes } from 'react';
 import Title from 'components/widgets/blog/elements/Title';
 import TextBox from 'components/widgets/blog/elements/TextBox';
 import { Container } from 'semantic-ui-react';
-import { ENDPOINT as url } from 'constants/ApiUrl';
 
-class About extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { about: {} };
-  }
+const About = ({title, text}) => (
+  <Container text >
+    <Title title={title} />
+    <TextBox text={text} />
+  </Container>
+);
 
-  componentDidMount() {
-    this.fetchAbout();
-  }
-
-  fetchAbout() {
-    request.get(
-      `${url}/about`,
-      {},
-      (err, res) => {
-        if (!err) {
-          this.setState({ about: res.body });
-        }
-      }
-    );
-  }
-
-  render() {
-    const { title, text } = this.state.about;
-
-    return (
-      <Container text>
-        <Title title={title} />
-        <TextBox text={text} />
-      </Container>
-    );
-  }
-}
+About.propTypes = {
+  title: PropTypes.string,
+  text: PropTypes.string
+};
 
 export default About;
