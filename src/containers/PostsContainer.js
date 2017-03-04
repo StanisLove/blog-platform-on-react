@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import BlogPage from 'components/BlogPage';
 import { flowRight } from 'lodash/util';
-import postLiked from 'actions/posts/postLiked';
-import changePage from 'actions/posts/changePage';
+import { postLiked } from 'actions/posts/postLiked';
+import { changePage } from 'actions/posts/changePage';
 
 const stateToProps = (state) => ({
   items:       state.posts.entries,
