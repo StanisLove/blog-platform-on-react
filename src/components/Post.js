@@ -4,7 +4,7 @@ import BlogItem from 'components/widgets/blog/Item';
 
 const Post = ({item, postLiked}) => (
   <Item.Group>
-    <BlogItem item={item} postLiked={postLiked} />
+    <BlogItem item={item} postLiked={() => postLiked(item.id)} />
   </Item.Group>
 );
 
