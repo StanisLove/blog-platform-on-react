@@ -1,7 +1,6 @@
 import { assign } from 'lodash/object';
 import * as types from 'constants/actionTypes/PostsActionTypes';
 import store from 'store';
-import _ from 'lodash';
 import { blogsPerPage } from 'constants/blogsPerPage';
 
 const initialState = {
@@ -24,15 +23,17 @@ export default function(state = initialState, action) {
           currentEntries: action.response.slice(0, 2)
         }
       );
-    case types.POSTS_LIKED: {
-      const entries = store.getState().posts.entries.map(function(obj) {
-        if (obj.id == action.id) {
-          obj.meta.likeCount = _.get(obj, 'meta.likeCount', 0) + 1;
+    case types.POSTS_LIKED_REQUEST:
+      return assign({}, store.getState().posts, {isFethcing: true});
+    case types.POSTS_LIKED_ERROR:
+      return assign({}, store.getState().posts, {error: true});
+    case types.POSTS_LIKED_SUCCESS:
+      return assign({}, store.getState().posts,
+        {
+          entries: action.response,
+          currentEntries: action.response.slice(0, 2)
         }
-        return obj;
-      });
-      return assign({}, store.getState().posts, {entries});
-    }
+      );
     case types.PAGE_CHANGED: {
       const currentEntries = store.getState().posts.entries.slice(
         (action.num - 1) * blogsPerPage, action.num * blogsPerPage

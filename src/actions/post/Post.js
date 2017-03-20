@@ -1,29 +1,15 @@
 import * as types from 'constants/actionTypes/PostActionTypes';
-import request from 'superagent';
-import { ENDPOINT } from 'constants/ApiUrl';
+import { API_CALL } from 'middleware/API';
 
-const requestPost = (id) => ({
-  type: types.FETCH_POST_REQUEST,
-  id
+export const fetchPost = (id) => ({
+  [API_CALL]: {
+    endpoint: `/posts/${id}`,
+    method: 'GET',
+    query: {},
+    types: [
+      types.FETCH_POST_REQUEST,
+      types.FETCH_POST_SUCCESS,
+      types.FETCH_POST_ERROR
+    ]
+  }
 });
-
-const receivePost = (response) => ({
-  type: types.FETCH_POST_SUCCESS,
-  response
-});
-
-const errorPost = () => ({
-  type: types.FETCH_POST_ERROR
-});
-
-export function fetchPost(id) {
-  return (dispatch) => {
-    dispatch(requestPost(id));
-    return request
-      .get(`${ENDPOINT}/posts/${id}`)
-      .end((error, response) => {
-        error ? dispatch(errorPost()) : dispatch(receivePost(response.body));
-      });
-  };
-}
-
