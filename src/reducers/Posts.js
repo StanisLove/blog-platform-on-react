@@ -1,7 +1,7 @@
 import { assign } from 'lodash/object';
 import * as types from 'constants/actionTypes/PostsActionTypes';
-import store from 'store';
 import { blogsPerPage } from 'constants/blogsPerPage';
+import store from 'store';
 
 const initialState = {
   isFetching: false,
@@ -13,32 +13,32 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case types.FETCH_POSTS_REQUEST:
-      return assign({}, initialState, {isFetching: true});
+      return assign({}, state, {isFetching: true});
     case types.FETCH_POSTS_ERROR:
-      return assign({}, initialState, {error: true});
+      return assign({}, state, {error: true});
     case types.FETCH_POSTS_SUCCESS:
-      return assign({}, initialState,
+      return assign({}, state,
         {
           entries: action.response,
           currentEntries: action.response.slice(0, 2)
         }
       );
     case types.POSTS_LIKED_REQUEST:
-      return assign({}, store.getState().posts, {isFethcing: true});
+      return assign({}, state, {isFethcing: true});
     case types.POSTS_LIKED_ERROR:
-      return assign({}, store.getState().posts, {error: true});
+      return assign({}, state, {error: true});
     case types.POSTS_LIKED_SUCCESS:
-      return assign({}, store.getState().posts,
+      return assign({}, state,
         {
           entries: action.response,
           currentEntries: action.response.slice(0, 2)
         }
       );
     case types.PAGE_CHANGED: {
-      const currentEntries = store.getState().posts.entries.slice(
+      const currentEntries = state.entries.slice(
         (action.num - 1) * blogsPerPage, action.num * blogsPerPage
       );
-      return assign({}, store.getState().posts, {currentEntries});
+      return assign({}, state, {currentEntries});
     }
     default:
       return state;

@@ -7,12 +7,14 @@ import { fetchAbout } from 'actions/About';
 import PostsContainer from 'containers/PostsContainer';
 import PostContainer from 'containers/PostContainer';
 import AboutContainer from 'containers/AboutContainer';
+import initialLoad from 'helpers/initialLoad';
 
 const Index = {
   path: '/',
   component: PostsContainer,
   prepareData: (store) => {
-    store.dispatch(fetchPosts());
+    if (initialLoad()) return;
+    return store.dispatch(fetchPosts());
   }
 };
 
@@ -20,7 +22,8 @@ const PostRoute = {
   path: postsPath(),
   component: PostContainer,
   prepareData: (store, query, params) => {
-    store.dispatch(fetchPost(params.id));
+    if (initialLoad()) return;
+    return store.dispatch(fetchPost(params.id));
   }
 };
 
@@ -28,7 +31,8 @@ const AboutRoute = {
   path: aboutPath(),
   component: AboutContainer,
   prepareData: (store) => {
-    store.dispatch(fetchAbout());
+    if (initialLoad()) return;
+    return store.dispatch(fetchAbout());
   }
 };
 
