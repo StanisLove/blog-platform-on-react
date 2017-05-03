@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import BlogList from 'components/widgets/blog/List';
+import BlogList from 'components/widgets/blog/BlogList';
 import PieChart from 'components/widgets/blog/PieChart';
 import SearchForm from 'components/widgets/blog/SearchForm';
 import { Grid } from 'semantic-ui-react';
 import { blogsPerPage } from 'constants/blogsPerPage';
 import Helmet from 'react-helmet';
 
-const Index = ({items, itemsOnPage, postLiked, changePage}) => {
+const Index = ({items, itemsOnPage, updatePost, changePage}) => {
   const pagesCount = Math.ceil(items.length / blogsPerPage);
 
   const chartColumns = (items) => {
@@ -32,7 +32,7 @@ const Index = ({items, itemsOnPage, postLiked, changePage}) => {
             itemsOnPage={itemsOnPage}
             pagesCount={pagesCount}
             changePage={changePage}
-            postLiked={postLiked}
+            updatePost={updatePost}
           />
         </Grid.Column>
 
@@ -48,7 +48,7 @@ const Index = ({items, itemsOnPage, postLiked, changePage}) => {
 Index.propTypes = {
   items:       PropTypes.array,
   itemsOnPage: PropTypes.array,
-  postLiked:   PropTypes.func,
+  updatePost:   PropTypes.func,
   changePage:  PropTypes.func
 };
 

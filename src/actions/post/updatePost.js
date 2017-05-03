@@ -1,15 +1,15 @@
 import * as types from 'constants/actionTypes/PostActionTypes';
 import { API_CALL } from 'middleware/API';
 
-export const postLiked = (id) => ({
+export const updatePost = (id, values) => ({
   [API_CALL]: {
     endpoint: `/posts/${id}`,
     method: 'POST',
-    query: {},
+    query: { values },
     types: [
-      types.POST_LIKED_REQUEST,
-      types.POST_LIKED_SUCCESS,
-      types.POST_LIKED_ERROR
+      types.POST_UPDATE_REQUEST,
+      types.POST_UPDATE_SUCCESS,
+      types.POST_UPDATE_ERROR
     ]
   }
 });

@@ -17,20 +17,27 @@ export default (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      Promise.all(compact(prepareData(store, renderProps))).then(() => {
-        const initialState = JSON.stringify(store.getState());
-        const content = ReactDOMServer.renderToString(
-          React.createElement(
-            Provider,
-            {store},
-            React.createElement(RouterContext, renderProps)
-          )
-        );
-        const head = Helmet.rewind();
+      Promise.all(compact(prepareData(store, renderProps)))
+        .then(() => {
+          const initialState = JSON.stringify(store.getState());
+          const content = ReactDOMServer.renderToString(
+            React.createElement(
+              Provider,
+              {store},
+              React.createElement(RouterContext, renderProps)
+            )
+          );
+          const head = Helmet.rewind();
 
-        res.status(200);
-        res.render('index', { initialState, content, head });
-      });
+          res.status(200);
+          res.render('index', { initialState, content, head });
+        })
+        .catch(error => {
+          if (error)
+            res.status(500).send(error.message);
+          else
+            res.status(404).send('Not found');
+        });
     } else {
       res.status(404).send('Not found');
     }

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Index from 'components/views/index';
 import { flowRight } from 'lodash/util';
-import { postLiked } from 'actions/posts/postLiked';
+import { updatePost } from 'actions/posts/updatePost';
 import { changePage } from 'actions/posts/changePage';
 
 const stateToProps = (state) => ({
@@ -12,7 +12,7 @@ const stateToProps = (state) => ({
 });
 
 const actionsToProps = (dispatch) => ({
-  postLiked: flowRight(dispatch, postLiked),
+  updatePost: flowRight(dispatch, updatePost),
   changePage: flowRight(dispatch, changePage)
 });
 
