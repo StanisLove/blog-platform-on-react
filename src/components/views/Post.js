@@ -1,12 +1,16 @@
 import React, { PropTypes } from 'react';
 import { Item } from  'semantic-ui-react';
-import BlogItem from 'components/widgets/blog/Item';
+import BlogItem from 'components/widgets/blog/BlogItem';
 import Helmet from 'react-helmet';
 
-const Post = ({item, postLiked}) => (
+const Post = ({item, updatePost}) => (
   <div>
     <Item.Group>
-      <BlogItem item={item} postLiked={() => postLiked(item.id)} />
+      <BlogItem
+        item={item}
+        postLiked={() => updatePost(item.id, { postLiked: true })}
+        comments={item.comments}
+      />
     </Item.Group>
     { item && <Helmet title={item.title} /> }
   </div>
@@ -14,7 +18,7 @@ const Post = ({item, postLiked}) => (
 
 Post.propTypes = {
   item: PropTypes.object,
-  postLiked: PropTypes.func
+  updatePost: PropTypes.func
 };
 
 export default Post;
