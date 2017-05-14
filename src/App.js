@@ -6,7 +6,7 @@ import routes from 'routes';
 
 import { Provider } from 'react-redux';
 
-import store from 'store';
+import createStore from 'store';
 
 import prepareData from 'helpers/prepareData';
 
@@ -14,8 +14,10 @@ import DevTools from 'containers/DevTools';
 
 import ReactDOM from 'react-dom';
 
+const store = createStore(window.__INITIAL_STATE__);
+
 function historyCb(location) {
-  match({ location, routes }, (error, redirect, state) => {
+  match({ routes, location }, (error, redirect, state) => {
     if (!error && !redirect) {
       prepareData(store, state);
     }
@@ -34,7 +36,8 @@ const App = () => (
 
 ReactDOM.render(
   <DevTools store={store} />,
-  document.getElementById('devtools')
+  document.getElementById('devtools'),
+  () => { delete window.__INITIAL_STATE__; }
 );
 
 export default App;

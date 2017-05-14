@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import About from 'components/About';
+import About from 'components/views/About';
 
 const stateToProps = (state) => ({
   title:      state.about.title,
