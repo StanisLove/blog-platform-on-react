@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TextBox = ({text}) => (
   <p>{text}</p>
 );
 
 TextBox.propTypes = {
-  text: React.PropTypes.string
+  text: PropTypes.string
 };
 
 TextBox.defaultProps = {

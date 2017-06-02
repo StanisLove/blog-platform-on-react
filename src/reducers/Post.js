@@ -1,7 +1,7 @@
 import { assign } from 'lodash/object';
 import * as types from 'constants/actionTypes/PostActionTypes';
 
-const initialState = {
+export const initialState = {
   isFetching: false,
   error: false,
   entry: {}

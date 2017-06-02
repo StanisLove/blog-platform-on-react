@@ -3,7 +3,7 @@ import * as types from 'constants/actionTypes/PostsActionTypes';
 import { blogsPerPage } from 'constants/blogsPerPage';
 import { cloneDeep } from 'lodash/lang';
 
-const initialState = {
+export const initialState = {
   isFetching: false,
   error: false,
   entries: [],

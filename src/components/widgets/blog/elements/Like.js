@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Button } from 'semantic-ui-react';
 
 const Like = ({likeCount, postLiked})  => (
-  <div>
+  <div className="like-button">
     <Button
       onClick={postLiked}
       color='grey'
@@ -20,8 +21,8 @@ const Like = ({likeCount, postLiked})  => (
 );
 
 Like.propTypes = {
-  likeCount: React.PropTypes.number,
-  postLiked: React.PropTypes.func
+  likeCount: PropTypes.number,
+  postLiked: PropTypes.func
 };
 
 Like.defaultProps = {

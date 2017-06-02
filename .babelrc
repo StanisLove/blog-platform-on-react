@@ -1,4 +1,7 @@
 {
-  "presets": ["latest", "react"],
-  "plugins": ["react-hot-loader/babel"]
+  "presets": ["env", "react"],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-object-rest-spread"
+  ]
 }

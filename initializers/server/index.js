@@ -1,6 +1,7 @@
 const path = require('path');
 require('app-module-path').addPath(path.join(process.cwd(), 'src'));
 require('babel-core/register');
+require('babel-polyfill');
 require('./global');
 
 require.extensions['.css'] = () => {
@@ -8,7 +9,6 @@ require.extensions['.css'] = () => {
 };
 
 const webpack = require('webpack');
-//const webpackDevServer = require('webpack-dev-server');
 const host = 'localhost';
 const port = 3000;
 

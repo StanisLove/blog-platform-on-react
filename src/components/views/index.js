@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import BlogList from 'components/widgets/blog/BlogList';
 import PieChart from 'components/widgets/blog/PieChart';
 import SearchForm from 'components/widgets/blog/SearchForm';

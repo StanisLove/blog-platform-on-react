@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Item, Image, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router';
 
@@ -67,7 +68,8 @@ BlogItem.defaultProps = {
       postDates: { createdAt: 'undefined', updatedAt: 'undefined' },
       likeCount: 0
     }
-  }
+  },
+  comments: []
 };
 
 export default BlogItem;

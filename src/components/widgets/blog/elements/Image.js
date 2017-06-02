@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Image = ({src, alt, width, height}) => (
   <img src={src} alt={alt} style={{ width, height }} />
 );
 
 Image.propTypes = {
-  src: React.PropTypes.string,
-  alt: React.PropTypes.string,
-  width: React.PropTypes.string,
-  height: React.PropTypes.string
+  src: PropTypes.string,
+  alt: PropTypes.string,
+  width: PropTypes.string,
+  height: PropTypes.string
 };
 
 Image.defaultProps = {

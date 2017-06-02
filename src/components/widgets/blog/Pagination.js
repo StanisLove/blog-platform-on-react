@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
 import { bind } from 'lodash/function';
 import { range } from 'lodash/util';

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Title from 'components/widgets/blog/elements/Title';
 import TextBox from 'components/widgets/blog/elements/TextBox';
 import { Container } from 'semantic-ui-react';

@@ -1,4 +1,4 @@
-import PropTypes from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Text = ({ name, value, onChange, label, error }) => (

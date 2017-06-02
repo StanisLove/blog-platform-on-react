@@ -3,5 +3,5 @@ import moment from 'moment';
 import { DEFAULT_DATE_FORMAT } from 'constants/Date';
 
 export function formatDate(date) {
-  return moment(date).format(DEFAULT_DATE_FORMAT);
+  return moment(Date.parse(date)).format(DEFAULT_DATE_FORMAT);
 }

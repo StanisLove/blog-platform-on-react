@@ -7,6 +7,7 @@ const root = path.join(process.cwd(), 'src');
 
 export default {
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client',
     './src/index.js'
